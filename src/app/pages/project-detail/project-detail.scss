@@ -1,0 +1,100 @@
+@use '../../../styles/variables' as *;
+
+.project-detail,
+.missing-project {
+  max-width: 1200px;
+  min-height: calc(100vh - 140px);
+  margin: 0 auto;
+  padding: $spacing-xl 2rem $spacing-3xl;
+}
+
+.back-link,
+.missing-project a {
+  color: $primary-color;
+  text-decoration: none;
+}
+
+.project-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: $space-4;
+  padding: $spacing-3xl 0 $spacing-xl;
+
+  .eyebrow {
+    color: $primary-color;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    margin: $space-1 0 $space-3;
+  }
+
+  .project-description {
+    color: $text-light;
+    font-size: $font-size-lg;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+}
+
+.contact-link {
+  border-radius: $border-radius-full;
+  background: $primary-color;
+  color: white;
+  padding: 0.8rem 1.1rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.project-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-3;
+
+  figure {
+    margin: 0;
+
+    &:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    max-height: 620px;
+    border-radius: $border-radius-lg;
+    object-fit: cover;
+  }
+}
+
+.missing-project {
+  text-align: center;
+  padding-top: $spacing-3xl;
+
+  p {
+    color: $text-light;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-heading {
+    display: block;
+    padding-top: $spacing-xl;
+  }
+
+  .contact-link {
+    display: inline-block;
+    margin-top: $space-3;
+  }
+
+  .project-images {
+    grid-template-columns: 1fr;
+  }
+}

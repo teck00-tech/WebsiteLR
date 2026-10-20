@@ -1,0 +1,101 @@
+// =============================================================================
+// Colors
+// =============================================================================
+$primary-color: #7c3aed;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$danger-color: #dc3545;
+$warning-color: #ffc107;
+$info-color: #17a2b8;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+
+// Background & Text
+$bg-color: #ffffff;
+$text-color: #333333;
+$text-light: #666666;
+$border-color: #e0e0e0;
+
+// =============================================================================
+// Typography
+// =============================================================================
+$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family-monospace: 'Courier New', Courier, monospace;
+$base-font-size: 16px;
+$base-line-height: 1.5;
+$heading-font-weight: 600;
+
+// Font sizes
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-base: 1rem;     // 16px
+$font-size-lg: 1.125rem;   // 18px
+$font-size-xl: 1.25rem;    // 20px
+$font-size-2xl: 1.5rem;    // 24px
+$font-size-3xl: 1.875rem;  // 30px
+$font-size-4xl: 2.25rem;   // 36px
+
+// =============================================================================
+// Spacing
+// =============================================================================
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-2xl: 48px;
+$spacing-3xl: 64px;
+
+// Shortcuts
+$space-0: 0;
+$space-1: $spacing-xs;
+$space-2: $spacing-sm;
+$space-3: $spacing-md;
+$space-4: $spacing-lg;
+$space-5: $spacing-xl;
+
+// =============================================================================
+// Breakpoints
+// =============================================================================
+$breakpoint-xs: 320px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-2xl: 1400px;
+
+// =============================================================================
+// Border Radius
+// =============================================================================
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-full: 9999px;
+
+// =============================================================================
+// Shadow
+// =============================================================================
+$shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+// =============================================================================
+// Transitions
+// =============================================================================
+$transition-fast: 150ms ease-in-out;
+$transition-base: 300ms ease-in-out;
+$transition-slow: 500ms ease-in-out;
+
+// =============================================================================
+// Z-index
+// =============================================================================
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;

@@ -1,0 +1,48 @@
+<div class="gallery-page">
+  <div class="gallery-header">
+    <h1>My Gallery</h1>
+    <p>Explore my collection of projects and images</p>
+  </div>
+
+  <div class="gallery-container">
+    <div class="gallery-toolbar" aria-label="Filter gallery by category">
+      <span class="gallery-count">{{ filteredGalleryItems.length }} projects</span>
+      <div class="gallery-actions">
+        <div class="gallery-filters">
+        <button
+          *ngFor="let category of categories"
+          type="button"
+          class="filter-button"
+          [class.active]="selectedCategory === category"
+          (click)="selectCategory(category)">
+          {{ category }}
+        </button>
+        </div>
+        <a *ngIf="authService.isAdmin()" class="create-project-link" routerLink="/admin">+ Neues Projekt</a>
+      </div>
+    </div>
+
+    <div class="gallery-grid">
+      <a class="gallery-item" *ngFor="let item of filteredGalleryItems" [routerLink]="['/gallery', item.id]">
+        <div class="gallery-image">
+          <img [src]="item.image" [alt]="item.title" />
+          <div class="gallery-overlay">
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+          </div>
+        </div>
+        <div class="gallery-caption">
+          <span>{{ item.category }}</span>
+          <h2>{{ item.title }}</h2>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <section class="gallery-info">
+    <h2>About My Work</h2>
+    <p>
+      My gallery showcases projects and images that reflect my focus on thoughtful, creative work.
+    </p>
+  </section>
+</div>

@@ -1,0 +1,56 @@
+<main class="admin-page">
+  <section class="admin-header">
+    <div>
+      <p class="eyebrow">Workspace</p>
+      <h1>Projekte verwalten</h1>
+      <p>Erstelle neue Projekte und ergänze sie um Bilder für die Galerie.</p>
+    </div>
+    <a routerLink="/gallery" class="back-to-gallery">Galerie ansehen</a>
+  </section>
+
+  <div class="admin-layout">
+    <form class="project-form" (ngSubmit)="createProject()">
+      <h2>Neues Projekt</h2>
+      <label for="title">Titel *</label>
+      <input id="title" name="title" [(ngModel)]="title" required placeholder="z. B. New Horizons" />
+
+      <label for="category">Kategorie</label>
+      <select id="category" name="category" [(ngModel)]="category">
+        <option>Illustration</option>
+        <option>Logo</option>
+        <option>Personal</option>
+        <option>Tattoo</option>
+      </select>
+
+      <label for="description">Beschreibung *</label>
+      <textarea id="description" name="description" [(ngModel)]="description" required rows="5" placeholder="Worum geht es bei diesem Projekt?"></textarea>
+
+      <label for="files">Bilder hochladen</label>
+      <input id="files" type="file" accept="image/*" multiple (change)="onFilesSelected($event)" />
+      <small>{{ selectedFiles.length }} lokale Bilder ausgewählt</small>
+
+      <label for="imageUrls">Oder Bild-URLs, eine pro Zeile</label>
+      <textarea id="imageUrls" name="imageUrls" [(ngModel)]="imageUrls" rows="3" placeholder="https://..."></textarea>
+
+      <p class="form-error" *ngIf="submitted && (!title.trim() || !description.trim())">Titel und Beschreibung sind erforderlich.</p>
+      <p class="form-error" *ngIf="saveFailed">Projekt konnte nicht gespeichert werden. Bitte prüfen, ob das C#-Backend läuft.</p>
+      <p class="saved-message" *ngIf="saved">Projekt wurde gespeichert und ist jetzt in der Galerie sichtbar.</p>
+      <button type="submit">Projekt erstellen</button>
+    </form>
+
+    <section class="project-list">
+      <div class="list-heading">
+        <h2>Vorhandene Projekte</h2>
+        <span>{{ projects.length }}</span>
+      </div>
+      <a class="project-row" *ngFor="let project of projects" [routerLink]="['/gallery', project.id]">
+        <img [src]="project.image" [alt]="project.title" />
+        <span>
+          <strong>{{ project.title }}</strong>
+          <small>{{ project.category }}</small>
+        </span>
+        <span class="arrow">↗</span>
+      </a>
+    </section>
+  </div>
+</main>

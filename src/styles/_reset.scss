@@ -1,0 +1,215 @@
+// =============================================================================
+// CSS Reset & Normalize
+// =============================================================================
+@use './variables' as *;
+@use './mixins' as *;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: $text-color;
+  background-color: $bg-color;
+}
+
+// Typography
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $heading-font-weight;
+  line-height: 1.2;
+  margin-bottom: $space-3;
+}
+
+h1 {
+  font-size: $font-size-4xl;
+}
+
+h2 {
+  font-size: $font-size-3xl;
+}
+
+h3 {
+  font-size: $font-size-2xl;
+}
+
+h4 {
+  font-size: $font-size-xl;
+}
+
+h5 {
+  font-size: $font-size-lg;
+}
+
+h6 {
+  font-size: $font-size-base;
+}
+
+p {
+  margin-bottom: $space-2;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  @include transition;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Lists
+ul,
+ol {
+  margin-bottom: $space-3;
+  padding-left: $space-4;
+}
+
+li {
+  margin-bottom: $space-1;
+}
+
+// Code
+code,
+pre {
+  font-family: $font-family-monospace;
+}
+
+code {
+  background-color: $light-color;
+  padding: 2px 6px;
+  border-radius: $border-radius-sm;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: $light-color;
+  padding: $space-3;
+  border-radius: $border-radius-md;
+  overflow-x: auto;
+  margin-bottom: $space-3;
+
+  code {
+    background-color: transparent;
+    padding: 0;
+  }
+}
+
+// Forms
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-md;
+  @include transition;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+
+  &:disabled {
+    background-color: $light-color;
+    cursor: not-allowed;
+  }
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  @include transition;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+// Tables
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: $space-3;
+}
+
+th,
+td {
+  text-align: left;
+  padding: $space-2;
+  border-bottom: 1px solid $border-color;
+}
+
+th {
+  background-color: $light-color;
+  font-weight: $heading-font-weight;
+}
+
+// Images
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// HR
+hr {
+  border: none;
+  border-top: 1px solid $border-color;
+  margin: $space-4 0;
+}
+
+// Blockquote
+blockquote {
+  border-left: 4px solid $primary-color;
+  padding-left: $space-3;
+  margin: $space-3 0;
+  color: $text-light;
+  font-style: italic;
+}
+
+// Accessibility
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
