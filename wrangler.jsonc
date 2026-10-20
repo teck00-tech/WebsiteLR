@@ -1,0 +1,10 @@
+
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "websitelr",
+  "compatibility_date": "2026-10-20",
+  "assets": {
+    "directory": "./dist/angular-website/browser",
+    "not_found_handling": "single-page-application"
+  }
+}
