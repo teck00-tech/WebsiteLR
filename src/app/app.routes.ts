@@ -8,6 +8,7 @@ import { Login } from './pages/login/login';
 import { Admin } from './pages/admin/admin';
 import { NotFound } from './pages/not-found/not-found';
 import { authGuard, adminGuard } from './guards/auth.guard';
+import { Register } from './pages/register/register';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -17,5 +18,6 @@ export const routes: Routes = [
   { path: 'contact', component: Contact },
   { path: 'login', component: Login },
   { path: 'admin', component: Admin, canActivate: [authGuard, adminGuard] },
-  { path: '**', component: NotFound }
+  { path: '**', component: NotFound },
+  { path: 'register', component: Register }
 ];

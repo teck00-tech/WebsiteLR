@@ -1,0 +1,81 @@
+
+<main class="login-page">
+  <section class="login-card">
+    <p class="eyebrow">Join WebsiteLR</p>
+    <h1>Konto erstellen</h1>
+    <p class="login-intro">
+      Erstelle dein Konto, um dich anzumelden.
+    </p>
+
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <label for="displayName">Name</label>
+      <input
+        id="displayName"
+        name="displayName"
+        type="text"
+        [(ngModel)]="displayName"
+        required
+        maxlength="100"
+        placeholder="Dein Name"
+      />
+
+      <label for="email">E-Mail</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="email"
+        required
+        email
+        maxlength="254"
+        placeholder="du@example.com"
+      />
+
+      <label for="password">Passwort</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        [(ngModel)]="password"
+        required
+        minlength="8"
+        autocomplete="new-password"
+        placeholder="Mindestens 8 Zeichen"
+      />
+
+      <label for="confirmPassword">Passwort bestätigen</label>
+      <input
+        id="confirmPassword"
+        name="confirmPassword"
+        type="password"
+        [(ngModel)]="confirmPassword"
+        required
+        autocomplete="new-password"
+        placeholder="Passwort erneut eingeben"
+      />
+
+      <p class="form-error" *ngIf="submitted && errorMessage">
+        {{ errorMessage }}
+      </p>
+
+      <p class="form-success" *ngIf="successMessage">
+        {{ successMessage }}
+      </p>
+
+      <button
+        class="login-button"
+        type="submit"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Konto wird erstellt …' : 'Registrieren' }}
+      </button>
+    </form>
+
+    <p class="register-switch">
+      Du hast schon ein Konto?
+      <a routerLink="/login">Jetzt anmelden</a>
+    </p>
+
+    <a class="back-link" routerLink="/">Zurück zur Startseite</a>
+  </section>
+</main>
