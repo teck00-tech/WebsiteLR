@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000/api'
+  apiUrl: 'https://websitelr-backend-gtf3b7agczdcbpdz.westus3-01.azurewebsites.net/api'
 };
