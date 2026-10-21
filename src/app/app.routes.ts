@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'gallery/:id', component: ProjectDetail },
   { path: 'contact', component: Contact },
   { path: 'login', component: Login },
+  { path: 'register', component: Register },
   { path: 'admin', component: Admin, canActivate: [authGuard, adminGuard] },
-  { path: '**', component: NotFound },
-  { path: 'register', component: Register }
+  { path: '**', component: NotFound }
 ];
