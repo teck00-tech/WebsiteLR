@@ -1,36 +1,60 @@
+
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  imports: [CommonModule, FormsModule, RouterLink],
   selector: 'app-login',
-  styleUrl: './login.scss',
-  templateUrl: './login.html'
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
+  templateUrl: './login.html',
+  styleUrl: './login.scss'
 })
 export class Login {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+
   email = '';
   password = '';
   submitted = false;
   loginFailed = false;
-
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  loading = false;
 
   async login(): Promise<void> {
     this.submitted = true;
     this.loginFailed = false;
-    if (!await this.authService.login(this.email, this.password)) {
-      this.loginFailed = true;
+
+    if (!this.email.trim() || this.password.length < 4 || this.loading) {
       return;
     }
 
-    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-    this.router.navigateByUrl(returnUrl || (this.authService.isAdmin() ? '/admin' : '/gallery'));
+    this.loading = true;
+
+    try {
+      const success = await this.authService.login(
+        this.email.trim(),
+        this.password
+      );
+
+      if (!success) {
+        this.loginFailed = true;
+        return;
+      }
+
+      const returnUrl =
+        this.route.snapshot.queryParamMap.get('returnUrl');
+
+      await this.router.navigateByUrl(
+        returnUrl || (this.authService.isAdmin() ? '/admin' : '/gallery')
+      );
+    } catch (error) {
+      console.error('Login fehlgeschlagen:', error);
+      this.loginFailed = true;
+    } finally {
+      this.loading = false;
+    }
   }
 }
