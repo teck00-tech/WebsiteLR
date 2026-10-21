@@ -1,6 +1,13 @@
+
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   imports: [ReactiveFormsModule, CommonModule],
@@ -12,8 +19,16 @@ export class Contact implements OnInit {
   contactForm!: FormGroup;
   submitted = false;
   messageSent = false;
+  sending = false;
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder) {}
+  private readonly apiUrl =
+    'https://websitelr-backend-gtf3b7agczdcbpdz.westus3-01.azurewebsites.net/api/contact';
+
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -30,22 +45,37 @@ export class Contact implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    if (this.contactForm.valid) {
-      const formData = this.contactForm.value;
-      console.log('Form submitted with data:', formData);
-      
-      // Show success message
-      this.messageSent = true;
-      
-      // Reset form
-      this.contactForm.reset();
-      this.submitted = false;
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        this.messageSent = false;
-      }, 5000);
+    this.messageSent = false;
+    this.errorMessage = '';
+
+    if (this.contactForm.invalid || this.sending) {
+      this.contactForm.markAllAsTouched();
+      return;
     }
+
+    this.sending = true;
+
+    this.http.post(this.apiUrl, this.contactForm.value).subscribe({
+      next: () => {
+        this.messageSent = true;
+        this.contactForm.reset();
+        this.submitted = false;
+
+        setTimeout(() => {
+          this.messageSent = false;
+        }, 5000);
+
+        this.sending = false;
+      },
+      error: (error) => {
+        console.error('Fehler beim Kontaktformular:', error);
+
+        this.errorMessage =
+          'Deine Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.';
+
+        this.sending = false;
+      }
+    });
   }
 
   get f() {
