@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { Design } from './pages/design/design';
@@ -13,11 +14,23 @@ import { Register } from './pages/register/register';
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'design', component: Design },
-  { path: 'gallery', component: Gallery },
-  { path: 'gallery/:id', component: ProjectDetail },
+  {
+    path: 'gallery',
+    component: Gallery,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'gallery/:id',
+    component: ProjectDetail,
+    canActivate: [authGuard]
+  },
   { path: 'contact', component: Contact },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
-  { path: 'admin', component: Admin, canActivate: [authGuard, adminGuard] },
+  {
+    path: 'admin',
+    component: Admin,
+    canActivate: [authGuard, adminGuard]
+  },
   { path: '**', component: NotFound }
 ];

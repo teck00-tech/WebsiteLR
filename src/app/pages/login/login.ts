@@ -27,7 +27,11 @@ export class Login {
     this.submitted = true;
     this.loginFailed = false;
 
-    if (!this.email.trim() || this.password.length < 4 || this.loading) {
+    if (
+      !this.email.trim() ||
+      this.password.length < 4 ||
+      this.loading
+    ) {
       return;
     }
 
@@ -44,12 +48,17 @@ export class Login {
         return;
       }
 
+      const isAdmin = this.authService.isAdmin();
       const returnUrl =
         this.route.snapshot.queryParamMap.get('returnUrl');
 
-      await this.router.navigateByUrl(
-        returnUrl || (this.authService.isAdmin() ? '/admin' : '/gallery')
-      );
+      let destination = isAdmin ? '/admin' : '/gallery';
+
+      if (isAdmin && returnUrl) {
+        destination = returnUrl;
+      }
+
+      await this.router.navigateByUrl(destination);
     } catch (error) {
       console.error('Login fehlgeschlagen:', error);
       this.loginFailed = true;
