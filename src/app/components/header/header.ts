@@ -1,22 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  imports: [CommonModule, RouterLink, RouterLinkActive],
   selector: 'app-header',
-  styleUrl: './header.scss',
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './header.html',
+  styleUrl: './header.scss',
 })
 export class Header {
-  constructor(
-    public authService: AuthService,
-    private router: Router
-  ) {}
+  readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/']);
+    void this.router.navigate(['/']);
   }
 }
