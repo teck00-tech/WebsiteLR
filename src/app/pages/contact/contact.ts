@@ -1,21 +1,23 @@
-
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  imports: [ReactiveFormsModule, CommonModule],
   selector: 'app-contact',
-  styleUrl: './contact.scss',
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './contact.html',
+  styleUrl: './contact.scss',
 })
 export class Contact implements OnInit {
+  private readonly fb = inject(FormBuilder);
+  private readonly http = inject(HttpClient);
+
   contactForm!: FormGroup;
   submitted = false;
   messageSent = false;
@@ -24,11 +26,6 @@ export class Contact implements OnInit {
 
   private readonly apiUrl =
     'https://websitelr-backend-gtf3b7agczdcbpdz.westus3-01.azurewebsites.net/api/contact';
-
-  constructor(
-    private fb: FormBuilder,
-    private http: HttpClient
-  ) {}
 
   ngOnInit(): void {
     this.initializeForm();

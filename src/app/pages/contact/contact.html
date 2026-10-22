@@ -1,3 +1,4 @@
+```html
 <div class="contact-page">
   <div class="contact-header">
     <h1>Contact Me</h1>
@@ -8,87 +9,110 @@
     <div class="contact-content">
       <div class="contact-info">
         <h2>Contact Information</h2>
+
         <div class="info-item">
           <h4>📍 Address</h4>
           <p>Frankenweg 3<br />Armsheim, Germany 55288</p>
         </div>
+
         <div class="info-item">
           <h4>📞 Phone</h4>
           <p>+49 151 23057090</p>
         </div>
+
         <div class="info-item">
           <h4>📧 Email</h4>
           <p>lea.bopp@yahoo.de</p>
         </div>
+
         <div class="info-item">
           <h4>🕐 Phone availability</h4>
           <p>Reach me by phone Monday - Friday: 12:00 PM - 4:00 PM</p>
         </div>
       </div>
 
-      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+      <form
+        [formGroup]="contactForm"
+        (ngSubmit)="onSubmit()"
+        class="contact-form">
+
         <h2>Send me a Message</h2>
-        
+
         <div class="form-group">
           <label for="name">Name *</label>
-          <input 
+          <input
             id="name"
-            type="text" 
+            type="text"
             formControlName="name"
             placeholder="Your name"
             required />
-          <span class="error" *ngIf="submitted && contactForm.get('name')?.hasError('required')">
-            Name is required
-          </span>
+
+          @if (submitted && contactForm.get('name')?.hasError('required')) {
+            <span class="error">Name is required</span>
+          }
         </div>
 
         <div class="form-group">
           <label for="email">Email *</label>
-          <input 
+          <input
             id="email"
-            type="email" 
+            type="email"
             formControlName="email"
             placeholder="your.email@example.com"
             required />
-          <span class="error" *ngIf="submitted && contactForm.get('email')?.hasError('required')">
-            Email is required
-          </span>
-          <span class="error" *ngIf="submitted && contactForm.get('email')?.hasError('email')">
-            Please enter a valid email
-          </span>
+
+          @if (submitted && contactForm.get('email')?.hasError('required')) {
+            <span class="error">Email is required</span>
+          }
+
+          @if (submitted && contactForm.get('email')?.hasError('email')) {
+            <span class="error">Please enter a valid email</span>
+          }
         </div>
 
         <div class="form-group">
           <label for="subject">Subject *</label>
-          <input 
+          <input
             id="subject"
-            type="text" 
+            type="text"
             formControlName="subject"
             placeholder="Subject"
             required />
-          <span class="error" *ngIf="submitted && contactForm.get('subject')?.hasError('required')">
-            Subject is required
-          </span>
+
+          @if (submitted && contactForm.get('subject')?.hasError('required')) {
+            <span class="error">Subject is required</span>
+          }
         </div>
 
         <div class="form-group">
           <label for="message">Message *</label>
-          <textarea 
+          <textarea
             id="message"
             formControlName="message"
             placeholder="Your message"
             rows="6"
             required></textarea>
-          <span class="error" *ngIf="submitted && contactForm.get('message')?.hasError('required')">
-            Message is required
-          </span>
+
+          @if (submitted && contactForm.get('message')?.hasError('required')) {
+            <span class="error">Message is required</span>
+          }
         </div>
 
-        <button type="submit" class="btn btn-primary">Send Message</button>
-        <p class="success-message" *ngIf="messageSent">
-          Thank you! Your message has been sent successfully.
-        </p>
+        <button type="submit" class="btn btn-primary">
+          Send Message
+        </button>
+
+        @if (messageSent) {
+          <p class="success-message">
+            Thank you! Your message has been sent successfully.
+          </p>
+        }
+
+        @if (errorMessage) {
+          <p class="error">{{ errorMessage }}</p>
+        }
       </form>
     </div>
   </div>
 </div>
+```

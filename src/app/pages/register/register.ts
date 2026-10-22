@@ -1,6 +1,4 @@
-
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -8,11 +6,14 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink],
   templateUrl: './register.html',
-  styleUrl: './register.scss'
+  styleUrl: './register.scss',
 })
 export class Register {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
   displayName = '';
   email = '';
   password = '';
@@ -22,11 +23,6 @@ export class Register {
   loading = false;
   errorMessage = '';
   successMessage = '';
-
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
 
   async register(): Promise<void> {
     this.submitted = true;
@@ -54,7 +50,7 @@ export class Register {
       const result = await this.authService.register(
         this.displayName,
         this.email,
-        this.password
+        this.password,
       );
 
       if (!result.success) {
@@ -68,6 +64,10 @@ export class Register {
       setTimeout(() => {
         void this.router.navigate(['/login']);
       }, 1200);
+    } catch (error) {
+      console.error('Fehler bei der Registrierung:', error);
+      this.errorMessage =
+        'Die Registrierung ist fehlgeschlagen. Bitte versuche es später erneut.';
     } finally {
       this.loading = false;
     }

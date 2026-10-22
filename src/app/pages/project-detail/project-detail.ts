@@ -1,26 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Project, ProjectService } from '../../services/project.service';
 
 @Component({
-  imports: [CommonModule, RouterLink],
   selector: 'app-project-detail',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './project-detail.html',
   styleUrl: './project-detail.scss',
-  templateUrl: './project-detail.html'
 })
 export class ProjectDetail implements OnInit {
-  project: Project | undefined;
+  private readonly route = inject(ActivatedRoute);
+  private readonly projectService = inject(ProjectService);
 
-  constructor(
-    private route: ActivatedRoute,
-    private projectService: ProjectService,
-    private changeDetector: ChangeDetectorRef
-  ) {}
+  project: Project | undefined;
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
-    this.project = id ? await this.projectService.getProject(id) : undefined;
-    this.changeDetector.detectChanges();
+
+    this.project = id
+      ? await this.projectService.getProject(id)
+      : undefined;
   }
 }

@@ -1,25 +1,35 @@
-<main class="project-detail" *ngIf="project; else missingProject">
-  <a class="back-link" routerLink="/gallery">← Zurück zur Galerie</a>
-  <section class="project-heading">
-    <div>
-      <p class="eyebrow">{{ project.category }}</p>
-      <h1>{{ project.title }}</h1>
-      <p class="project-description">{{ project.description }}</p>
-    </div>
-    <a class="contact-link" routerLink="/contact">Ähnliches Projekt starten</a>
-  </section>
+@if (project; as currentProject) {
+  <main class="project-detail">
+    <a class="back-link" routerLink="/gallery">
+      ← Zurück zur Galerie
+    </a>
 
-  <section class="project-images">
-    <figure *ngFor="let image of project.images">
-      <img [src]="image" [alt]="project.title" />
-    </figure>
-  </section>
-</main>
+    <section class="project-heading">
+      <div>
+        <p class="eyebrow">{{ currentProject.category }}</p>
+        <h1>{{ currentProject.title }}</h1>
+        <p class="project-description">
+          {{ currentProject.description }}
+        </p>
+      </div>
 
-<ng-template #missingProject>
+      <a class="contact-link" routerLink="/contact">
+        Ähnliches Projekt starten
+      </a>
+    </section>
+
+    <section class="project-images">
+      @for (image of currentProject.images; track $index) {
+        <figure>
+          <img [src]="image" [alt]="currentProject.title" />
+        </figure>
+      }
+    </section>
+  </main>
+} @else {
   <main class="missing-project">
     <h1>Projekt nicht gefunden</h1>
     <p>Dieses Projekt existiert nicht oder wurde entfernt.</p>
     <a routerLink="/gallery">Zur Galerie</a>
   </main>
-</ng-template>
+}

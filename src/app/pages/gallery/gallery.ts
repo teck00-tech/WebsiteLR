@@ -1,30 +1,26 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Project, ProjectService } from '../../services/project.service';
 
 @Component({
-  imports: [CommonModule, RouterLink],
   selector: 'app-gallery',
-  styleUrl: './gallery.scss',
+  standalone: true,
+  imports: [RouterLink],
   templateUrl: './gallery.html',
+  styleUrl: './gallery.scss',
 })
 export class Gallery implements OnInit {
+  private readonly authService = inject(AuthService);
+  private readonly projectService = inject(ProjectService);
+
   projects: Project[] = [];
 
   categories = ['All', 'Illustration', 'Logo', 'Personal', 'Tattoo'];
   selectedCategory = 'All';
 
-  constructor(
-    public authService: AuthService,
-    private projectService: ProjectService,
-    private changeDetector: ChangeDetectorRef
-  ) {}
-
   async ngOnInit(): Promise<void> {
     this.projects = await this.projectService.getProjects();
-    this.changeDetector.detectChanges();
   }
 
   get filteredGalleryItems(): Project[] {
@@ -32,7 +28,9 @@ export class Gallery implements OnInit {
       return this.projects;
     }
 
-    return this.projects.filter(item => item.category === this.selectedCategory);
+    return this.projects.filter(
+      item => item.category === this.selectedCategory
+    );
   }
 
   selectCategory(category: string): void {
