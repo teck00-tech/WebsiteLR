@@ -49,6 +49,12 @@
           @if (submitted && contactForm.get('name')?.hasError('required')) {
             <span class="error">Name is required</span>
           }
+
+          @if (submitted && contactForm.get('name')?.hasError('minlength')) {
+          <span class="error">
+            Message must be at least 2 characters long.
+          </span>
+        }
         </div>
 
         <div class="form-group">
@@ -81,6 +87,12 @@
           @if (submitted && contactForm.get('subject')?.hasError('required')) {
             <span class="error">Subject is required</span>
           }
+
+          @if (submitted && contactForm.get('subject')?.hasError('minlength')) {
+          <span class="error">
+            Message must be at least 3 characters long.
+          </span>
+        }
         </div>
 
         <div class="form-group">
