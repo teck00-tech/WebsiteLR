@@ -1,4 +1,3 @@
-```html
 <div class="contact-page">
   <div class="contact-header">
     <h1>Contact Me</h1>
@@ -91,11 +90,17 @@
             formControlName="message"
             placeholder="Your message"
             rows="6"
-            required></textarea>
+            required>
+          </textarea>
+        @if (submitted && contactForm.get('message')?.hasError('required')) {
+          <span class="error">Message is required</span>
+        }
 
-          @if (submitted && contactForm.get('message')?.hasError('required')) {
-            <span class="error">Message is required</span>
-          }
+        @if (submitted && contactForm.get('message')?.hasError('minlength')) {
+          <span class="error">
+            Message must be at least 10 characters long.
+          </span>
+        }
         </div>
 
         <button type="submit" class="btn btn-primary">
@@ -115,4 +120,3 @@
     </div>
   </div>
 </div>
-```
