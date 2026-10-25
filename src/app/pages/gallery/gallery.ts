@@ -11,7 +11,7 @@ import { Project, ProjectService } from '../../services/project.service';
   styleUrl: './gallery.scss',
 })
 export class Gallery implements OnInit {
-  private readonly authService = inject(AuthService);
+  readonly authService = inject(AuthService);
   private readonly projectService = inject(ProjectService);
 
   projects: Project[] = [];
