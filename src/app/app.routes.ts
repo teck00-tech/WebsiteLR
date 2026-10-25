@@ -16,13 +16,11 @@ export const routes: Routes = [
   { path: 'design', component: Design },
   {
     path: 'gallery',
-    component: Gallery,
-    canActivate: [authGuard]
+    component: Gallery
   },
   {
     path: 'gallery/:id',
-    component: ProjectDetail,
-    canActivate: [authGuard]
+    component: ProjectDetail
   },
   { path: 'contact', component: Contact },
   { path: 'login', component: Login },
